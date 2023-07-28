@@ -1,33 +1,41 @@
 import React from "react";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     return(
         <nav>
         <ul>
           <li>
-            <NavLink exact to="/">Home</NavLink>
+            <Link to="/">Home</Link>
           </li>
+
           <li>
-            <span>Books ▼</span>
+            <span>Books</span>
             <ul>
-              <li>
-                <NavLink to="/all-books">All Books</NavLink>
-              </li>
-              <li>
-                <NavLink to="/add-book">Add a Book</NavLink>
-              </li>
+              <li><Link to="/all-books">All Books</Link></li>
+              <li><Link to="/add-book">Add a Book</Link></li>
             </ul>
           </li>
-          {/*<li>
-            <NavLink to="/authors">Authors</NavLink>
-          </li>
+
           <li>
-            <NavLink to="/users">Users</NavLink>
+            <span>Authors</span>
+            <ul>
+              <li><Link to="/all-authors">All Authors</Link></li>
+              <li><Link to="/add-author">Add an Author</Link></li>
+            </ul>
           </li>
+          
           <li>
-            <NavLink to="/loans">Loans</NavLink>
-    </li>*/}
+            <span>Users</span>
+            <ul>
+              <li><Link to="/all-users">All Users</Link></li>
+              <li><Link to="/add-user">Add a User</Link></li>
+            </ul>
+          </li>
+
+          <li>
+            <Link to="/all-loans">Loans</Link>
+          </li>
         </ul>
       </nav>
     );

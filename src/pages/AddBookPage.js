@@ -1,7 +1,13 @@
 //import React from "react";
 
-const AddBookPage = () => {
+import Layout from "../components/Layout";
 
+const AddBookPage = () => {
+    return(
+    <div>
+        <Layout />
+    </div>
+    );
 
 }
 
