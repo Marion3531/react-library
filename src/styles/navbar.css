@@ -1,0 +1,60 @@
+/* Réinitialiser les styles de base pour les listes */
+nav ul, nav li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  /* Style de la barre de menu */
+  nav {
+    background-color: #f2f2f2;
+  }
+  
+  nav ul {
+    display: flex; /* Utiliser flexbox pour aligner les éléments horizontalement */
+    justify-content: space-around; /* Les éléments seront répartis équitablement sur la largeur de la barre de menu */
+    padding: 10px;
+  }
+  
+  nav li {
+    position: relative; /* Nécessaire pour afficher les sous-menus */
+  }
+  
+  /* Style des liens principaux */
+  nav li > a {
+    color: #333;
+    text-decoration: none;
+    padding: 8px 16px;
+    display: block;
+  }
+  
+  /* Style des sous-menus */
+  nav li ul {
+    position: absolute;
+    top: 100%; /* Placer le sous-menu sous le lien principal */
+    left: 0;
+    background-color: #f2f2f2;
+    display: none; /* Cacher initialement les sous-menus */
+  }
+  
+  /* Afficher le sous-menu au survol */
+  nav li:hover ul {
+    display: block;
+  }
+  
+  /* Style des éléments de sous-menu */
+  nav li ul li {
+    padding: 8px 16px;
+  }
+  
+  /* Style des liens de sous-menu */
+  nav li ul li a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  /* Changer la couleur du lien actif si nécessaire */
+  nav li > a.active {
+    color: #007bff;
+  }
+  
