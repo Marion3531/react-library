@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import Layout from "../components/Layout";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Layout from '../components/Layout';
 import '../styles/addBookPage.css';
 
 const AddBookPage = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,7 +24,7 @@ const AddBookPage = () => {
             if (!response.ok) {
               throw new Error('Network response was not ok.');
             }
-            window.location.href = '/all-books';
+            navigate('/all-books');
           })
           .catch((error) => {
             console.error('Error adding book:', error);
