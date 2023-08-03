@@ -1,0 +1,51 @@
+*{
+    list-style-type: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.book {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.book h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.book ul {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.book li {
+    margin-bottom: 5px;
+}
+
+.book p {
+    margin-bottom: 20px;
+}
+
+.book button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.book button:hover {
+    background-color: #0056b3;
+}
+
+.book button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

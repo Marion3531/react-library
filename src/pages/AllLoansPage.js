@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Layout from "../components/Layout";
 import "../styles/allLoansPage.css";
 
 const AllLoansPage = () => {
   const [loans, setLoans] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8080/loans")
@@ -16,22 +18,21 @@ const AllLoansPage = () => {
   }, []);
 
   const handleReturn = (loan) => {
-    fetch(`http://localhost:8080/loans/return/${loan.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        }
-        //body: JSON.stringify(data),
-      })
-      .then(response => {
+    //console.log("Handle Return called!");
+    fetch(`http://localhost:8080/books/return/${loan.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok.');
+          throw new Error("Network response was not ok.");
         }
-        //
       })
-      .catch(error => {
-        console.error('Error updating book:', error);
-      });       
+      .catch((error) => {
+        console.error("Error updating book:", error);
+      });
   };
 
   return (
@@ -54,7 +55,8 @@ const AllLoansPage = () => {
               {!loan.borrowed ? (
                 "Archived"
               ) : (
-                <button onClick={() => handleReturn(loan)}>Return</button>
+                <button onClick={() => { handleReturn(loan)}}>Return</button>
+
               )}
             </p>
             <p>{loan.user.username}</p>
