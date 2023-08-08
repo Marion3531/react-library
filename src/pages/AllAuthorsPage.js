@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../components/Layout";
 
 const AllAuthorsPage = () => {
   const [authors, setAuthors] = useState([]);
@@ -22,7 +21,6 @@ const AllAuthorsPage = () => {
 
   return (
     <div>
-      <Layout />
       {authors.map((author) => (
         <div key={author.id}>
           <h3>

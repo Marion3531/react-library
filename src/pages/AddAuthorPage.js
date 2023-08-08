@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import Layout from "../components/Layout";
 
 const AddAuthorPage = () => {
   const [firstname, setFirstname] = useState("");
@@ -29,7 +28,6 @@ const AddAuthorPage = () => {
   };
   return (
     <div>
-      <Layout />
       <form onSubmit={handleSubmit}>
         <h2>Add an Author</h2>
         <div>

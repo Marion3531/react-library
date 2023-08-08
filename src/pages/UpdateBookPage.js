@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import Layout from "../components/Layout";
 import Select from "react-select";
 
 const UpdateBookPage = () => {
@@ -59,7 +58,6 @@ const UpdateBookPage = () => {
 
   return (
     <div>
-      <Layout />
       <h2>Update a book</h2>
       <form onSubmit={handleSubmit}>
         <div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import Layout from "../components/Layout";
 import "../styles/allLoansPage.css";
 
 const AllLoansPage = () => {
@@ -37,7 +36,6 @@ const AllLoansPage = () => {
 
   return (
     <>
-      <Layout />
       <h3>Loans</h3>
       <div className="loan-container">
         <div className="loan-header">

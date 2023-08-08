@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import Layout from "../components/Layout";
+import { Link, useSearchParams } from "react-router-dom";
+import '../styles/searchResults.css';
 
 const SearchResultsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,11 +28,19 @@ const SearchResultsPage = () => {
 
   return (
     <div>
-      <Layout />
       <ul>
         {searchResults.map((book) => (
-          <li key={book.id}>
-            <h3>{book.title}</h3>
+          <li key={book.id} className="book-item">
+            <Link to={`/info-book/${book.id}`} className="book-link">
+              <h3>{book.title}</h3>
+              <ul className="author-list">
+                {book.authors.map((author) => (
+                  <li
+                    key={author.id}
+                  >{`${author.firstname} ${author.lastname}`}</li>
+                ))}
+              </ul>
+            </Link>
           </li>
         ))}
       </ul>

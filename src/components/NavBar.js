@@ -9,6 +9,12 @@ const NavBar = () => {
     navigate(`/search-results?query=${query}`);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const searchInput = event.target.searchInput.value;
+    handleSearch(searchInput);
+  };
+
   return (
     <nav>
       <ul>
@@ -58,10 +64,14 @@ const NavBar = () => {
 
         <li>
           <div className="searchBar">
-            <input type="text" placeholder="Search book or author..." />
-            <button type="submit" onClick={() => handleSearch()}>
-              OK
-            </button>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="searchInput"
+                placeholder="Search book or author..."
+              />
+              <button type="submit">OK</button>
+            </form>
           </div>
         </li>
       </ul>

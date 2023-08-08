@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Layout from "../components/Layout";
 
 const InfoBookPage = () => {
   const { id } = useParams();
@@ -22,7 +21,6 @@ const InfoBookPage = () => {
 
   return (
     <div>
-      <Layout />
       {/* <h1>{book.title}</h1>
       <p>{book.description}</p> */}
 

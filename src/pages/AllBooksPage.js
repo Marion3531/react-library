@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Layout from "../components/Layout";
 import "../styles/allBooksPage.css";
 
 const AllBooksPage = () => {
@@ -61,7 +60,6 @@ const AllBooksPage = () => {
 
   return (
     <div>
-      <Layout>
         <div className="container">
           {books.map((book) => (
             <div className="book" key={book.id}>
@@ -107,7 +105,6 @@ const AllBooksPage = () => {
             </div>
           ))}
         </div>
-      </Layout>
     </div>
   );
 };
