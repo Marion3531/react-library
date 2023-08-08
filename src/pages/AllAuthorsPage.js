@@ -10,7 +10,8 @@ const AllAuthorsPage = () => {
         throw new Error("Network response was not ok.");
       }
       const data = await response.json();
-      const authorList = data._embedded.authorList;
+      console.log(data)
+      const authorList = data._embedded.authors;
       setAuthors(authorList);
 
       console.error("Error fetching data:");
@@ -22,7 +23,7 @@ const AllAuthorsPage = () => {
   return (
     <div>
       {authors.map((author) => (
-        <div key={author.id}>
+        <div key={author.id}> 
           <h3>
             {author.firstname} {author.lastname}
           </h3>

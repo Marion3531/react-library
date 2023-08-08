@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 const InfoBookPage = () => {
   const { id } = useParams();
   const [book, setBook] = useState();
+  
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -13,7 +14,7 @@ const InfoBookPage = () => {
       }
       const data = await response.json();
       setBook(data);
-
+      console.log(data);
       console.error("Error fetching data:");
     };
     fetchBook();

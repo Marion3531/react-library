@@ -59,32 +59,42 @@ nav ul, nav li {
   }
 
   /* search bar */
-.searchBar {
-  display: flex;
-  align-items: center;
-  background-color: #f2f2f2;
-  border-radius: 5px;
-  padding: 0px;
-  position: relative;
-}
 
-/* search input */
-.searchBar input[type="text"] {
-  border: solid 2px;
-  background-color: #ffffff ;
-  outline: none;
-  margin: 0px 5px 0px 0px;
-  flex: 1;
-  padding: 8px;
-}
-
-/* validation button */
-.searchBar button {
-  font-size: 14px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  padding: 0px;
-}
+  .searchBar {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0; /* Couleur de fond */
+    border-radius: 8px; /* Coins arrondis */
+    padding: 0; /* Espacement intérieur */
+  }
+  
+  .searchBar form {
+    display: flex;
+    align-items: center;
+    padding: 0px;
+  }
+  
+  .searchBar input {
+    border: none; /* Pas de bordure */
+    padding: 8px; /* Espacement intérieur */
+    border-radius: 4px; /* Coins arrondis pour l'input */
+    outline: none; /* Pas de contour lorsque l'élément est en surbrillance */
+  }
+  
+  .searchBar button {
+    background-color: #007bff; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    border: none; /* Pas de bordure */
+    border-radius: 4px; /* Coins arrondis pour le bouton */
+    padding: 0px; /* Espacement intérieur */
+    cursor: pointer; /* Curseur de souris indiquant une interaction cliquable */
+    outline: none; /* Pas de contour lorsque l'élément est en surbrillance */
+    transition: background-color 0.3s ease; /* Transition en douceur pour la couleur de fond */
+  }
+  
+  .searchBar button:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
+  }
+  
 
   
