@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "../components/Layout";
 import "../styles/allBooksPage.css";
 
@@ -15,8 +15,9 @@ const AllBooksPage = () => {
         throw new Error("Network response was not ok.");
       }
       const data = await response.json();
-      const bookList = data._embedded.bookList;
-      setBooks(bookList);
+      //const bookList = data._embedded.bookList;
+      //setBooks(bookList);
+      setBooks(data);
 
       console.error("Error fetching data:");
     };
@@ -64,16 +65,25 @@ const AllBooksPage = () => {
         <div className="container">
           {books.map((book) => (
             <div className="book" key={book.id}>
-              <h3>{book.title}</h3>
-              <ul>
+              <Link to={`/info-book/${book.id}`}>
+                <h3>{book.title}</h3>
+              </Link>
+              <ul className="author-list">
                 {book.authors.map((author) => (
                   <li
                     key={author.id}
                   >{`${author.firstname} ${author.lastname}`}</li>
                 ))}
               </ul>
+              <p>{book.borrowed ? (
+                      "Unavailable"
+                    ) : (
+                      <button onClick={() => handleBorrow(book)}>
+                        Borrow
+                      </button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
+                    )}</p>
 
-              <ul>
+              {/* <ul>
                 {book.loans.map((loan) => (
                   <li key={loan.id}>
                     {loan.borrowed ? (
@@ -85,9 +95,9 @@ const AllBooksPage = () => {
                     )}
                   </li>
                 ))}
-              </ul>
+              </ul> */}
 
-              <p>{book.description}</p>
+              {/* <p>{book.description}</p> */}
               <button onClick={() => navigate(`update-book/${book.id}`)}>
                 Update book
               </button>

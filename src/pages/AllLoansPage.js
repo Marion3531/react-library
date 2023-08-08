@@ -55,8 +55,13 @@ const AllLoansPage = () => {
               {!loan.borrowed ? (
                 "Archived"
               ) : (
-                <button onClick={() => { handleReturn(loan)}}>Return</button>
-
+                <button
+                  onClick={() => {
+                    handleReturn(loan);
+                  }}
+                >
+                  Return
+                </button>
               )}
             </p>
             <p>{loan.user.username}</p>
