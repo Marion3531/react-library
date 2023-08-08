@@ -7,17 +7,23 @@ const InfoBookPage = () => {
   
 
   useEffect(() => {
-    const fetchBook = async () => {
-      const response = await fetch(`http://localhost:8080/books/${id}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
-      }
-      const data = await response.json();
-      setBook(data);
-      console.log(data);
-      console.error("Error fetching data:");
+    const fetchBookDetails = () => {
+      fetch(`http://localhost:8080/books/${id}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setBook(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching book:", error);
+        });
     };
-    fetchBook();
+
+    fetchBookDetails();
   });
 
   return (
