@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import "../styles/allLoansPage.css";
 
 const AllLoansPage = () => {
   const [loans, setLoans] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8080/loans")
@@ -17,7 +15,6 @@ const AllLoansPage = () => {
   }, []);
 
   const handleReturn = (loan) => {
-    //console.log("Handle Return called!");
     fetch(`http://localhost:8080/books/return/${loan.id}`, {
       method: "PUT",
       headers: {
@@ -28,6 +25,13 @@ const AllLoansPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
         }
+        setLoans((prevLoans) =>
+          prevLoans.map((prevLoan) =>
+            prevLoan.id === loan.id
+              ? { ...prevLoan, borrowed: false }
+              : prevLoan
+          )
+        );
       })
       .catch((error) => {
         console.error("Error updating book:", error);

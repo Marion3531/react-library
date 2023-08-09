@@ -11,7 +11,7 @@ const UpdateBookPage = () => {
   const [description, setDescription] = useState("");
 
   const [authors, setAuthors] = useState([]);
-  const [selectedAuthors, setSelectedAuthors] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   //fetch book avec son id obtenu depuis l'url
   useEffect(() => {
@@ -25,7 +25,6 @@ const UpdateBookPage = () => {
         })
         .then((data) => {
           setBook(data);
-          //console.log(data);
         })
         .catch((error) => {
           console.error("Error fetching books:", error);
@@ -33,6 +32,8 @@ const UpdateBookPage = () => {
     };
     fetchBooks();
   }, [bookId]);
+
+  console.log(book);
 
   //fetch get all authors
   useEffect(() => {
@@ -47,7 +48,6 @@ const UpdateBookPage = () => {
         .then((data) => {
           const authorList = data._embedded.authorList;
           setAuthors(authorList);
-          console.log(authorList);
         })
         .catch((error) => {
           console.error("Error fetching authors:", error);
@@ -57,12 +57,12 @@ const UpdateBookPage = () => {
     fetchAuthors();
   }, []);
 
-  const handleSelectChange = (selectedOptions) => {
-    setSelectedAuthors(selectedOptions);
+  const handleSelectChange = (selected) => {
+    setSelectedOptions(selected);
   };
 
   const authorOptions = authors.map((author) => ({
-    value: author.id,
+    value: author,
     label: `${author.firstname} ${author.lastname}`,
   }));
 
@@ -70,14 +70,18 @@ const UpdateBookPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { title, description, selectedAuthors };
+    const selectedValues = selectedOptions.map((option) => option.value);
 
     fetch(`http://localhost:8080/books/${bookId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        title,
+        description,
+        authors: selectedValues,
+      }),
     })
       .then((response) => {
         if (!response.ok) {
@@ -112,9 +116,9 @@ const UpdateBookPage = () => {
         </div>
         <div>
           <Select
-            value={selectedAuthors}
-            onChange={handleSelectChange}
             options={authorOptions}
+            value={selectedOptions}
+            onChange={handleSelectChange}
             isMulti
           />
         </div>

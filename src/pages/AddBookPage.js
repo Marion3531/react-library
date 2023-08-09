@@ -35,8 +35,8 @@ const AddBookPage = () => {
   }, []);
 
   const options = authors.map((author) => ({
-    value: `${author.id}`,
-    label: `${author.firstname} ${author.lastname}`
+    value: author,
+    label: `${author.firstname} ${author.lastname}`,
   }));
 
   const handleSelectChange = (selected) => {

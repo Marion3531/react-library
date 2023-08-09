@@ -36,7 +36,7 @@ const AllBooksPage = () => {
         if (!response.ok) {
           throw new Error("Failed to delete book.");
         }
-        navigate("/all-books");
+        setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId)); //à la place de window.location.reload()
       })
       .catch((error) => {
         console.error("Error deleting book:", error);
@@ -54,6 +54,11 @@ const AllBooksPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
         }
+        setBooks((prevBooks) =>
+          prevBooks.map((prevBook) =>
+            prevBook.id === book.id ? { ...prevBook, borrowed: true } : prevBook
+          )
+        );
       })
       .catch((error) => {
         console.error("Error updating book:", error);
