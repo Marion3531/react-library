@@ -4,39 +4,73 @@ import Select from "react-select";
 
 const UpdateBookPage = () => {
   const { bookId } = useParams();
+  const navigate = useNavigate();
+
+  const [book, setBook] = useState();
   const [title, setTitle] = useState();
   const [description, setDescription] = useState("");
+
   const [authors, setAuthors] = useState([]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
-  const navigate = useNavigate();
+
+  //fetch book avec son id obtenu depuis l'url
+  useEffect(() => {
+    const fetchBooks = async () => {
+      fetch(`http://localhost:8080/books/${bookId}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setBook(data);
+          //console.log(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching books:", error);
+        });
+    };
+    fetchBooks();
+  }, [bookId]);
 
   //fetch get all authors
   useEffect(() => {
-    const fetchAuthors = async () => {
-      const response = await fetch("http://localhost:8080/authors");
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
-      }
-      const data = await response.json();
-      const authorList = data._embedded.authorList;
-      const options = authorList.map((author) => ({
-        //value: `${author.firstname} ${author.lastname}`,
-        value: author.id,
-        label: `${author.firstname} ${author.lastname}`,
-      }));
-      setAuthors(options);
-
-      console.error("Error fetching data:");
+    const fetchAuthors = () => {
+      fetch("http://localhost:8080/authors")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const authorList = data._embedded.authorList;
+          setAuthors(authorList);
+          console.log(authorList);
+        })
+        .catch((error) => {
+          console.error("Error fetching authors:", error);
+        });
     };
 
     fetchAuthors();
   }, []);
 
+  const handleSelectChange = (selectedOptions) => {
+    setSelectedAuthors(selectedOptions);
+  };
+
+  const authorOptions = authors.map((author) => ({
+    value: author.id,
+    label: `${author.firstname} ${author.lastname}`,
+  }));
+
   //PUT request when clicking on update
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { title, description };
+    const data = { title, description, selectedAuthors };
 
     fetch(`http://localhost:8080/books/${bookId}`, {
       method: "PUT",
@@ -64,7 +98,6 @@ const UpdateBookPage = () => {
           <label>Title:</label>
           <input
             type="text"
-            placeholder="Enter book title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -79,11 +112,10 @@ const UpdateBookPage = () => {
         </div>
         <div>
           <Select
-            options={authors}
-            placeholder="select author(s)"
             value={selectedAuthors}
+            onChange={handleSelectChange}
+            options={authorOptions}
             isMulti
-            onChange={(selectedOptions) => setSelectedAuthors(selectedOptions)}
           />
         </div>
 

@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const InfoBookPage = () => {
-  const { id } = useParams();
+  const { bookId } = useParams();
   const [book, setBook] = useState();
-  
 
   useEffect(() => {
     const fetchBookDetails = () => {
-      fetch(`http://localhost:8080/books/${id}`)
+      fetch(`http://localhost:8080/books/${bookId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -16,6 +15,7 @@ const InfoBookPage = () => {
           return response.json();
         })
         .then((data) => {
+          console.log(data);
           setBook(data);
         })
         .catch((error) => {
@@ -24,18 +24,17 @@ const InfoBookPage = () => {
     };
 
     fetchBookDetails();
-  });
+  }, [bookId]);
 
   return (
     <div>
-      {/* <h1>{book.title}</h1>
-      <p>{book.description}</p> */}
-
-      {/* <ul>
-        {book.authors.map((author) => (
-          <li key={author.id}>{`${author.firstname} ${author.lastname}`}</li>
-        ))}
-      </ul> */}
+      {book && (
+        <div>
+          <h3>{book.title}</h3>
+          <p>{book.description}</p>
+          {/* Autres éléments d'information */}
+        </div>
+      )}
     </div>
   );
 };

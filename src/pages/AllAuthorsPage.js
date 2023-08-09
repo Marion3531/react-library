@@ -13,7 +13,7 @@ const AllAuthorsPage = () => {
           return response.json();
         })
         .then((data) => {
-          const authorList = data._embedded.authors;
+          const authorList = data._embedded.authorList;
           setAuthors(authorList);
         })
         .catch((error) => {

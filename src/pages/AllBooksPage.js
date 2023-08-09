@@ -5,20 +5,22 @@ import "../styles/allBooksPage.css";
 const AllBooksPage = () => {
   const [books, setBooks] = useState([]);
   const navigate = useNavigate();
-  //console.log(books);
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const response = await fetch("http://localhost:8080/books");
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
-      }
-      const data = await response.json();
-      //const bookList = data._embedded.bookList;
-      //setBooks(bookList);
-      setBooks(data);
-
-      console.error("Error fetching data:");
+      fetch("http://localhost:8080/books")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          setBooks(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching books:", error);
+        });
     };
     fetchBooks();
   }, []);
@@ -60,51 +62,35 @@ const AllBooksPage = () => {
 
   return (
     <div>
-        <div className="container">
-          {books.map((book) => (
-            <div className="book" key={book.id}>
-              <Link to={`/info-book/${book.id}`}>
-                <h3>{book.title}</h3>
-              </Link>
-              <ul className="author-list">
-                {book.authors.map((author) => (
-                  <li
-                    key={author.id}
-                  >{`${author.firstname} ${author.lastname}`}</li>
-                ))}
-              </ul>
-              <p>{book.borrowed ? (
-                      "Unavailable"
-                    ) : (
-                      <button onClick={() => handleBorrow(book)}>
-                        Borrow
-                      </button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
-                    )}</p>
-
-              {/* <ul>
-                {book.loans.map((loan) => (
-                  <li key={loan.id}>
-                    {loan.borrowed ? (
-                      "Unavailable"
-                    ) : (
-                      <button onClick={() => handleBorrow(book)}>
-                        Borrow
-                      </button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
-                    )}
-                  </li>
-                ))}
-              </ul> */}
-
-              {/* <p>{book.description}</p> */}
-              <button onClick={() => navigate(`update-book/${book.id}`)}>
-                Update book
-              </button>
-              <button onClick={() => handleDeleteButton(book.id)}>
-                Delete book
-              </button>
-            </div>
-          ))}
-        </div>
+      <div className="container">
+        {books.map((book) => (
+          <div className="book" key={book.id}>
+            <Link to={`/info-book/${book.id}`}>
+              <h3>{book.title}</h3>
+            </Link>
+            <ul className="author-list">
+              {book.authors.map((author) => (
+                <li
+                  key={author.id}
+                >{`${author.firstname} ${author.lastname}`}</li>
+              ))}
+            </ul>
+            <p>
+              {book.borrowed ? (
+                "Unavailable"
+              ) : (
+                <button onClick={() => handleBorrow(book)}>Borrow</button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
+              )}
+            </p>
+            <button onClick={() => navigate(`update-book/${book.id}`)}>
+              Update book
+            </button>
+            <button onClick={() => handleDeleteButton(book.id)}>
+              Delete book
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
