@@ -1,0 +1,56 @@
+/* Styling for the form container */
+.form-container {
+    max-width: 50%;
+    margin: auto;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+  }
+
+  .createAccountForm{
+    padding: 0px 20px 20px 20px;
+  }
+  
+  /* Styling for form header */
+  .form-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for form fields */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styling for password visibility toggle button */
+  .password-toggle-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  /* Styling for submit button */
+  .submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

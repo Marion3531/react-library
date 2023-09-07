@@ -63,7 +63,6 @@ const AddBookPage = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
         }
-        console.log(selectedValues);
         navigate("/all-books");
       })
       .catch((error) => {
@@ -73,11 +72,11 @@ const AddBookPage = () => {
 
   return (
     <div>
-      <h2>Add a book</h2>
       <form onSubmit={handleSubmit}>
+      <h2>Add a book</h2>
         <div>
           <label>Title:</label>
-          <input
+          <input className="input-add"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -85,7 +84,7 @@ const AddBookPage = () => {
         </div>
         <div>
           <label>Description:</label>
-          <input
+          <input className="input-add"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

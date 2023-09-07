@@ -1,0 +1,38 @@
+h3 {
+  text-align: center;
+}
+
+.users-container {
+  max-width: 60%;
+  margin: auto;
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.users-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.users-list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 10px;
+}
+
+.users-list p {
+  margin: 0;
+  flex: 1;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}

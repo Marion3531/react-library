@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
+import { deleteData } from "../functions/fetchFunctions.js";
 import "../styles/allBooksPage.css";
 
 const AllBooksPage = () => {
+  const itemsPerPage = 8;
   const [books, setBooks] = useState([]);
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -17,6 +22,7 @@ const AllBooksPage = () => {
         })
         .then((data) => {
           setBooks(data);
+          setTotalPages(Math.ceil(data.length / itemsPerPage));
         })
         .catch((error) => {
           console.error("Error fetching books:", error);
@@ -25,18 +31,18 @@ const AllBooksPage = () => {
     fetchBooks();
   }, []);
 
+  const startIndex = currentPage * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const subset = books.slice(startIndex, endIndex);
+
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage.selected);
+  };
+
   const handleDeleteButton = (bookId) => {
-    fetch(`http://localhost:8080/books/${bookId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to delete book.");
-        }
-        setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId)); //à la place de window.location.reload()
+    deleteData(`http://localhost:8080/books/${bookId}`)
+      .then(() => {
+        setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
       })
       .catch((error) => {
         console.error("Error deleting book:", error);
@@ -67,8 +73,12 @@ const AllBooksPage = () => {
 
   return (
     <div>
+      <div id="addButtonContainer">
+        <button onClick={() => navigate("add-book")}>Add a book</button>
+      </div>
+      <h3 id="title">All Books</h3>
       <div className="container">
-        {books.map((book) => (
+        {subset.map((book) => (
           <div className="book" key={book.id}>
             <Link to={`/info-book/${book.id}`}>
               <h3>{book.title}</h3>
@@ -96,6 +106,16 @@ const AllBooksPage = () => {
           </div>
         ))}
       </div>
+      <ReactPaginate
+        pageCount={totalPages}
+        onPageChange={handlePageChange}
+        previousLabel="Previous"
+        nextLabel="Next"
+        breakLabel="..."
+        pageLinkClassName="page-link"
+        activeClassName="active"
+        containerClassName="pagination"
+      />
     </div>
   );
 };

@@ -47,15 +47,7 @@ const NavBar = () => {
         </li>
 
         <li>
-          <span>Users</span>
-          <ul>
-            <li>
-              <Link to="/all-users">All Users</Link>
-            </li>
-            <li>
-              <Link to="/add-user">Add a User</Link>
-            </li>
-          </ul>
+          <Link to="/all-users">Users</Link>
         </li>
 
         <li>

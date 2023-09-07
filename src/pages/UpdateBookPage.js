@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { updateData } from "../functions/fetchFunctions.js";
 
 const UpdateBookPage = () => {
   const { bookId } = useParams();
@@ -24,6 +25,8 @@ const UpdateBookPage = () => {
           return response.json();
         })
         .then((data) => {
+          setTitle(data.title);
+          setDescription(data.description);
           setBook(data);
         })
         .catch((error) => {
@@ -32,8 +35,6 @@ const UpdateBookPage = () => {
     };
     fetchBooks();
   }, [bookId]);
-
-  console.log(book);
 
   //fetch get all authors
   useEffect(() => {
@@ -61,7 +62,7 @@ const UpdateBookPage = () => {
     setSelectedOptions(selected);
   };
 
-  const authorOptions = authors.map((author) => ({
+  const authorsOptions = authors.map((author) => ({
     value: author,
     label: `${author.firstname} ${author.lastname}`,
   }));
@@ -71,18 +72,9 @@ const UpdateBookPage = () => {
     e.preventDefault();
 
     const selectedValues = selectedOptions.map((option) => option.value);
+    const updatedBookdata = { title, description, authors: selectedValues };
 
-    fetch(`http://localhost:8080/books/${bookId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        authors: selectedValues,
-      }),
-    })
+    updateData(`http://localhost:8080/books/${bookId}`, updatedBookdata)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
@@ -116,7 +108,7 @@ const UpdateBookPage = () => {
         </div>
         <div>
           <Select
-            options={authorOptions}
+            options={authorsOptions}
             value={selectedOptions}
             onChange={handleSelectChange}
             isMulti

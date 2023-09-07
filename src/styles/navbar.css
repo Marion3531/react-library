@@ -7,12 +7,13 @@ nav ul, nav li {
   
   /* Style de la barre de menu */
   nav {
+    margin-bottom: 20px;
     background-color: #f2f2f2;
   }
   
   nav ul {
-    display: flex; /* Utiliser flexbox pour aligner les éléments horizontalement */
-    justify-content: space-around; /* Les éléments seront répartis équitablement sur la largeur de la barre de menu */
+    display: flex; 
+    justify-content: space-around; 
     padding: 10px;
   }
   
@@ -24,6 +25,11 @@ nav ul, nav li {
   nav li > a {
     color: #333;
     text-decoration: none;
+    padding: 8px 16px;
+    display: block;
+  }
+
+  nav li > span {
     padding: 8px 16px;
     display: block;
   }
@@ -74,9 +80,10 @@ nav ul, nav li {
     padding: 0px;
   }
   
-  .searchBar input {
-    border: none; /* Pas de bordure */
-    padding: 8px; /* Espacement intérieur */
+  .searchBar form input {
+    border: none;
+    margin: 0px; 
+    padding: 8px; 
     border-radius: 4px; /* Coins arrondis pour l'input */
     outline: none; /* Pas de contour lorsque l'élément est en surbrillance */
   }
