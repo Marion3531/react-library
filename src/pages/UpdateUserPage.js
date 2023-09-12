@@ -13,7 +13,7 @@ const UpdateUserPage = () => {
 
     const updatedUserData = { username, email };
 
-    updateData(`http://localhost:8080/users/${userId}`, updatedUserData)
+    updateData(`http://localhost:8080/api/users/${userId}`, updatedUserData)
       .then(() => {
         console.log(userId);
         console.log(updatedUserData);

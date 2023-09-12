@@ -17,7 +17,7 @@ const UpdateBookPage = () => {
   //fetch book avec son id obtenu depuis l'url
   useEffect(() => {
     const fetchBooks = async () => {
-      fetch(`http://localhost:8080/books/${bookId}`)
+      fetch(`http://localhost:8080/api/books/${bookId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -39,7 +39,7 @@ const UpdateBookPage = () => {
   //fetch get all authors
   useEffect(() => {
     const fetchAuthors = () => {
-      fetch("http://localhost:8080/authors")
+      fetch("http://localhost:8080/api/authors")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -74,7 +74,7 @@ const UpdateBookPage = () => {
     const selectedValues = selectedOptions.map((option) => option.value);
     const updatedBookdata = { title, description, authors: selectedValues };
 
-    updateData(`http://localhost:8080/books/${bookId}`, updatedBookdata)
+    updateData(`http://localhost:8080/api/books/${bookId}`, updatedBookdata)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");

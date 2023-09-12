@@ -7,16 +7,15 @@ const AllUsersPage = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem('token');
-  console.log(token);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      fetch("http://localhost:8080/users", {
+      fetch("http://localhost:8080/api/users", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${token}`, 
-        }
+        },
       })
         .then((response) => {
           if (!response.ok) {
@@ -25,7 +24,6 @@ const AllUsersPage = () => {
           return response.json();
         })
         .then((data) => {
-          console.log("Data:", data);
           setUsers(data);
         })
         .catch((error) => {
@@ -33,10 +31,10 @@ const AllUsersPage = () => {
         });
     };
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleDeleteButton = (userId) => {
-    deleteData(`http://localhost:8080/users/${userId}`)
+    deleteData(`http://localhost:8080/api/users/${userId}`)
       .then(() => {
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId)); //à la place de window.location.reload()
       })

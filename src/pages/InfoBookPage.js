@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { createData, deleteData } from "../functions/fetchFunctions.js";
+import { deleteData } from "../functions/fetchFunctions.js";
 
 const InfoBookPage = () => {
   const { bookId } = useParams();
@@ -9,10 +9,11 @@ const InfoBookPage = () => {
   //const [borrowStatus, setBorrowStatus] = useState(book.borrowed ? "unavailable" : "available");
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchBookDetails = () => {
-      fetch(`http://localhost:8080/books/${bookId}`)
+      fetch(`http://localhost:8080/api/books/${bookId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -32,7 +33,7 @@ const InfoBookPage = () => {
   }, [bookId]);
 
   const handleBorrowButton = (book) => {
-    fetch(`http://localhost:8080/books/borrow/${book.id}`, {
+    fetch(`http://localhost:8080/api/books/borrow/${book.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const InfoBookPage = () => {
   };
 
   const handleDelete = (bookId) => {
-    deleteData(`http://localhost:8080/books/${bookId}`)
+    deleteData(`http://localhost:8080/api/books/${bookId}`)
       .then(() => {
         navigate("/all-books");
       })
@@ -63,7 +64,7 @@ const InfoBookPage = () => {
 
   useEffect(() => {
     const fetchComments = () => {
-      fetch(`http://localhost:8080/comments?bookId=${bookId}`)
+      fetch(`http://localhost:8080/api/comments?bookId=${bookId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -86,10 +87,11 @@ const InfoBookPage = () => {
     e.preventDefault();
     const commentData = { content };
 
-    fetch(`http://localhost:8080/comments/${bookId}`, {
+    fetch(`http://localhost:8080/api/comments/${bookId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
       body: commentData.content, // Envoyer seulement la chaîne de caractères du contenu sinon ça affiche {"content":"ok"}
     })
@@ -111,7 +113,7 @@ const InfoBookPage = () => {
 
   //delete a comment
   const handleCommentDelete = (commentId) => {
-    deleteData(`http://localhost:8080/comments/${commentId}`)
+    deleteData(`http://localhost:8080/api/comments/${commentId}`)
       .then(() => {
         console.log("hello");
         setComments((prevComments) =>

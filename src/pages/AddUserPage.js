@@ -17,7 +17,7 @@ const AddUserPage = () => {
     e.preventDefault();
     const userData = { username, email, password };
 
-    createData("http://localhost:8080/auth/register", userData)
+    createData("http://localhost:8080/api/auth/register", userData)
       .then(() => {
         navigate("/all-users");
       })

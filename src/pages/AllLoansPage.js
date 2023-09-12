@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { getData } from "../functions/fetchFunctions";
 import dayjs from "dayjs";
 import "../styles/allLoansPage.css";
+
+const token = localStorage.getItem("token");
 
 const AllLoansPage = () => {
   const [loans, setLoans] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/loans")
+    getData("http://localhost:8080/api/loans")
       .then((response) => response.json())
       .then((data) => {
         setLoans(data);
@@ -15,10 +18,11 @@ const AllLoansPage = () => {
   }, []);
 
   const handleReturn = (loan) => {
-    fetch(`http://localhost:8080/books/return/${loan.id}`, {
+    fetch(`http://localhost:8080/api/books/return/${loan.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     })
       .then((response) => {

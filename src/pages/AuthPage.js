@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createData } from "../functions/fetchFunctions";
 import "../styles/authPage.css";
 
 const AuthPage = () => {
@@ -12,7 +11,7 @@ const AuthPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/auth/authenticate", {
+    fetch("http://localhost:8080/api/auth/authenticate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

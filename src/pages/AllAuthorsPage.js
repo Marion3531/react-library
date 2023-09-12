@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteData } from "../functions/fetchFunctions.js";
+import { getData, deleteData } from "../functions/fetchFunctions.js";
 import "../styles/allAuthorsPage.css";
 
 const AllAuthorsPage = () => {
@@ -8,28 +8,24 @@ const AllAuthorsPage = () => {
   const [authors, setAuthors] = useState([]);
 
   useEffect(() => {
-    const fetchAuthors = () => {
-      fetch("http://localhost:8080/authors")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok.");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          const authorList = data._embedded.authorList;
-          setAuthors(authorList);
-        })
-        .catch((error) => {
-          console.error("Error fetching authors:", error);
-        });
-    };
-
-    fetchAuthors();
+    getData("http://localhost:8080/api/authors")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const authorList = data._embedded.authorList;
+        setAuthors(authorList);
+      })
+      .catch((error) => {
+        console.error("Error fetching authors:", error);
+      });
   }, []);
 
   const handleDeleteButton = (authorId) => {
-    deleteData(`http://localhost:8080/authors/${authorId}`)
+    deleteData(`http://localhost:8080/api/authors/${authorId}`)
       .then(() => {
         setAuthors((prevAuthor) =>
           prevAuthor.filter((author) => author.id !== authorId)
@@ -43,9 +39,7 @@ const AllAuthorsPage = () => {
   return (
     <div>
       <div id="addAuthorBtnContainer">
-        <button onClick={() => navigate("add-author")}>
-          Add an author
-        </button>
+        <button onClick={() => navigate("add-author")}>Add an author</button>
       </div>
       <table className="author-table">
         <thead>

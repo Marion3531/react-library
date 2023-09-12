@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import "../styles/addBookPage.css";
+import { createData } from "../functions/fetchFunctions";
 
 const AddBookPage = () => {
   const [title, setTitle] = useState("");
@@ -14,7 +15,7 @@ const AddBookPage = () => {
   //fetch get all authors
   useEffect(() => {
     const fetchAuthors = () => {
-      fetch("http://localhost:8080/authors")
+      fetch("http://localhost:8080/api/authors")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -48,17 +49,9 @@ const AddBookPage = () => {
 
     const selectedValues = selectedOptions.map((option) => option.value);
 
-    fetch("http://localhost:8080/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        description,
-        authors: selectedValues,
-      }),
-    })
+    const data = { title, description, authors: selectedValues };
+
+    createData("http://localhost:8080/api/books", data)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
@@ -73,10 +66,11 @@ const AddBookPage = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-      <h2>Add a book</h2>
+        <h2>Add a book</h2>
         <div>
           <label>Title:</label>
-          <input className="input-add"
+          <input
+            className="input-add"
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -84,7 +78,8 @@ const AddBookPage = () => {
         </div>
         <div>
           <label>Description:</label>
-          <input className="input-add"
+          <input
+            className="input-add"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

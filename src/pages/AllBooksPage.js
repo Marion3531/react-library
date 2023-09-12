@@ -10,10 +10,11 @@ const AllBooksPage = () => {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
     const fetchBooks = async () => {
-      fetch("http://localhost:8080/books")
+      fetch("http://localhost:8080/api/books")
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -40,7 +41,7 @@ const AllBooksPage = () => {
   };
 
   const handleDeleteButton = (bookId) => {
-    deleteData(`http://localhost:8080/books/${bookId}`)
+    deleteData(`http://localhost:8080/api/books/${bookId}`)
       .then(() => {
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId));
       })
@@ -50,10 +51,11 @@ const AllBooksPage = () => {
   };
 
   const handleBorrow = (book) => {
-    fetch(`http://localhost:8080/books/borrow/${book.id}`, {
+    fetch(`http://localhost:8080/api/books/borrow/${book.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': `Bearer ${token}`,
       },
     })
       .then((response) => {

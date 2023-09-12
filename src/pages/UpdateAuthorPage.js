@@ -10,7 +10,7 @@ const UpdateAuthorPage = () => {
 
   useEffect(() => {
     const fetchAuthors = () => {
-      fetch(`http://localhost:8080/authors/${authorId}`)
+      fetch(`http://localhost:8080/api/authors/${authorId}`)
         .then((response) => {
           if (!response.ok) {
             throw new Error("Network response was not ok.");
@@ -34,7 +34,7 @@ const UpdateAuthorPage = () => {
 
     const updatedAuthorData = { firstname, lastname };
 
-    updateData(`http://localhost:8080/authors/${authorId}`, updatedAuthorData)
+    updateData(`http://localhost:8080/api/authors/${authorId}`, updatedAuthorData)
       .then(() => {
         navigate("/all-authors");
       })

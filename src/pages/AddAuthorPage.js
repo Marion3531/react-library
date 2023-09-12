@@ -11,7 +11,7 @@ const AddAuthorPage = () => {
     e.preventDefault();
     const authorData = { firstname, lastname };
 
-    createData("http://localhost:8080/authors", authorData)
+    createData("http://localhost:8080/api/authors", authorData)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
