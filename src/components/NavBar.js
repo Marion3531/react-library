@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import "../styles/navbar.css";
 
 const NavBar = () => {
+  const [userPermissions, setUserPermissions] = useState([]);
   const navigate = useNavigate();
 
   const handleSearch = (query) => {
     navigate(`/search-results?query=${query}`);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); 
+    if (token) {
+      const decodedToken = jwt_decode(token);
+      console.log(decodedToken);
+      //const role = ????????
+      setUserPermissions(role);
+    }
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,9 +40,11 @@ const NavBar = () => {
             <li>
               <Link to="/all-books">All Books</Link>
             </li>
-            <li>
-              <Link to="/add-book">Add a Book</Link>
-            </li>
+            {userPermissions.includes("ADMIN") && (
+              <li>
+                <Link to="/add-book">Add a Book</Link>
+              </li>
+            )}
           </ul>
         </li>
 
@@ -40,20 +54,24 @@ const NavBar = () => {
             <li>
               <Link to="/all-authors">All Authors</Link>
             </li>
+            {userPermissions.includes("ADMIN") && (
             <li>
               <Link to="/add-author">Add an Author</Link>
             </li>
+            )}
           </ul>
         </li>
 
+        {userPermissions.includes("ADMIN") && (
         <li>
           <Link to="/all-users">Users</Link>
         </li>
-
+        )}
+        {userPermissions.includes("ADMIN") && (
         <li>
           <Link to="/all-loans">Loans</Link>
         </li>
-
+        )}
         <li>
           <div className="searchBar">
             <form onSubmit={handleSubmit}>
