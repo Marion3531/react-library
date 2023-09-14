@@ -16,7 +16,7 @@ const NavBar = () => {
     if (token) {
       const decodedToken = jwt_decode(token);
       console.log(decodedToken);
-      //const role = ????????
+      const role = decodedToken.authorities || [];
       setUserPermissions(role);
     }
   }, []);
@@ -40,7 +40,7 @@ const NavBar = () => {
             <li>
               <Link to="/all-books">All Books</Link>
             </li>
-            {userPermissions.includes("ADMIN") && (
+            {userPermissions.includes("ROLE_ADMIN") && (
               <li>
                 <Link to="/add-book">Add a Book</Link>
               </li>
@@ -54,7 +54,7 @@ const NavBar = () => {
             <li>
               <Link to="/all-authors">All Authors</Link>
             </li>
-            {userPermissions.includes("ADMIN") && (
+            {userPermissions.includes("ROLE_ADMIN") && (
             <li>
               <Link to="/add-author">Add an Author</Link>
             </li>
@@ -62,12 +62,12 @@ const NavBar = () => {
           </ul>
         </li>
 
-        {userPermissions.includes("ADMIN") && (
+        {userPermissions.includes("ROLE_ADMIN") && (
         <li>
           <Link to="/all-users">Users</Link>
         </li>
         )}
-        {userPermissions.includes("ADMIN") && (
+        {userPermissions.includes("ROLE_ADMIN") && (
         <li>
           <Link to="/all-loans">Loans</Link>
         </li>

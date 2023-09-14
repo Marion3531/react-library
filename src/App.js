@@ -11,7 +11,7 @@ import AllLoansPage from "./pages/AllLoansPage";
 import InfoBookPage from "./pages/InfoBookPage";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import AllUsersPage from "./pages/AllUsersPage";
-import AddUserPage from "./pages/AddUserPage";
+import RegisterPage from "./pages/RegisterPage";
 import UpdateUserPage from "./pages/UpdateUserPage";
 import UpdateAuthorPage from "./pages/UpdateAuthorPage";
 import AuthPage from "./pages/AuthPage";
@@ -23,7 +23,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
 
-          <Route path="/register" element={<AddUserPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/authenticate" element={<AuthPage />} />
 
           <Route path="/all-books" element={<AllBooksPage />} />

@@ -96,13 +96,13 @@ const AllBooksPage = () => {
               {book.borrowed ? (
                 "Unavailable"
               ) : (
-                <button onClick={() => handleBorrow(book)}>Borrow</button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
+                <button className="bookButton" onClick={() => handleBorrow(book)}>Borrow</button> //if loan.borrowed is true, it will render the text "Unavailable." else if false, it will render a button with the label "Borrow."
               )}
             </p>
-            <button onClick={() => navigate(`update-book/${book.id}`)}>
+            <button className="bookButton" onClick={() => navigate(`update-book/${book.id}`)}>
               Update book
             </button>
-            <button onClick={() => handleDeleteButton(book.id)}>
+            <button className="bookButton" onClick={() => handleDeleteButton(book.id)}>
               Delete book
             </button>
           </div>

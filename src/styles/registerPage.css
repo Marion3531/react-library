@@ -43,7 +43,7 @@
   }
   
   /* Styling for submit button */
-  .submit-button {
+  .register-form-button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -53,4 +53,14 @@
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
+  /* Styling for button if incorrect register input */
+  .invalid-password {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #3a4552;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }

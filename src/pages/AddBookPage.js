@@ -93,7 +93,7 @@ const AddBookPage = () => {
             />
           </div>
         </div>
-        <button type="submit">Add</button>
+        <button type="submit" className="submit-add-book-form">Add</button>
       </form>
     </div>
   );

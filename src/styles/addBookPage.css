@@ -22,7 +22,7 @@ form {
 }
 
 /* Style pour le bouton d'envoi */
-button[type="submit"] {
+.submit-add-book-form {
   background-color: #ae8ccd;
   color: #fff;
   padding: 10px 20px;
@@ -31,6 +31,6 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+.submit-add-book-form:hover {
   background-color: #45a049;
 }
