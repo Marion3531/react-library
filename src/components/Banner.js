@@ -8,7 +8,7 @@ const Banner = () => {
       <button className="connexion-btn">
         <Link to="/authenticate">Connexion</Link>
       </button>
-      <h1>Library exercise</h1>
+      <h1>Twin Peaks Public Library</h1>
     </>
   );
 };

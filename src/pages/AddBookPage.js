@@ -7,6 +7,8 @@ import { createData } from "../functions/fetchFunctions";
 const AddBookPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [yearOfPublication, setYearOfPublication] = useState("");
+  const [numberOfPages, setNumberOfPages] = useState("");
   const [authors, setAuthors] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -84,16 +86,39 @@ const AddBookPage = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <div>
-            <Select
-              options={options}
-              value={selectedOptions}
-              onChange={handleSelectChange}
-              isMulti
-            />
-          </div>
         </div>
-        <button type="submit" className="submit-add-book-form">Add</button>
+        <div>
+          <label>Year of publication:</label>
+          <input
+            className="input-add"
+            type="number"
+            value={yearOfPublication}
+            onChange={(e) => setYearOfPublication(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Number of pages:</label>
+          <input
+            className="input-add"
+            type="number"
+            min="0"
+            value={numberOfPages}
+            onChange={(e) => setNumberOfPages(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Authors:</label>
+          <Select
+            options={options}
+            value={selectedOptions}
+            onChange={handleSelectChange}
+            isMulti
+          />
+        </div>
+
+        <button type="submit" className="submit-add-book-form">
+          Add
+        </button>
       </form>
     </div>
   );

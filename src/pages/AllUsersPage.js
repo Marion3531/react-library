@@ -36,7 +36,7 @@ const AllUsersPage = () => {
   const handleDeleteButton = (userId) => {
     deleteData(`http://localhost:8080/api/users/${userId}`)
       .then(() => {
-        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId)); //à la place de window.location.reload()
+        setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId)); //instead of window.location.reload()
       })
       .catch((error) => {
         console.error("Error deleting user:", error);

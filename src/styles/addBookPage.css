@@ -12,7 +12,8 @@ form {
   background-color: #f9f9f9;
 }
 
-/* Style pour les champs de saisie */
+/* input fiels styling */
+
 .input-add {
   width: 95%;
   padding: 8px;
@@ -21,7 +22,8 @@ form {
   border-radius: 4px;
 }
 
-/* Style pour le bouton d'envoi */
+/* submit button styling */
+
 .submit-add-book-form {
   background-color: #ae8ccd;
   color: #fff;

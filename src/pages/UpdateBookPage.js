@@ -9,6 +9,8 @@ const UpdateBookPage = () => {
 
   const [book, setBook] = useState();
   const [title, setTitle] = useState();
+  const [yearOfPublication, setYearOfPublication] = useState();
+  const [numberOfPages, setNumberOfPages] = useState();
   const [description, setDescription] = useState("");
 
   const [authors, setAuthors] = useState([]);
@@ -27,6 +29,8 @@ const UpdateBookPage = () => {
         .then((data) => {
           setTitle(data.title);
           setDescription(data.description);
+          setYearOfPublication(data.yearOfPublication);
+          setNumberOfPages(data.numberOfPages);
           setBook(data);
         })
         .catch((error) => {
@@ -72,14 +76,14 @@ const UpdateBookPage = () => {
     e.preventDefault();
 
     const selectedValues = selectedOptions.map((option) => option.value);
-    const updatedBookdata = { title, description, authors: selectedValues };
+    const updatedBookdata = { title, description, yearOfPublication, numberOfPages, authors: selectedValues };
 
     updateData(`http://localhost:8080/api/books/${bookId}`, updatedBookdata)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok.");
         }
-        navigate("/all-books");
+        navigate(-1);
       })
       .catch((error) => {
         console.error("Error adding book:", error);
@@ -107,6 +111,26 @@ const UpdateBookPage = () => {
           />
         </div>
         <div>
+          <label>Year of publication:</label>
+          <input
+            className="input-add"
+            type="number"
+            value={yearOfPublication}
+            onChange={(e) => setYearOfPublication(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Number of pages:</label>
+          <input
+            className="input-add"
+            type="number"
+            min="0"
+            value={numberOfPages}
+            onChange={(e) => setNumberOfPages(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Authors:</label>
           <Select
             options={authorsOptions}
             value={selectedOptions}

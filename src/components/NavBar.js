@@ -7,20 +7,19 @@ const NavBar = () => {
   const [userPermissions, setUserPermissions] = useState([]);
   const navigate = useNavigate();
 
-  const handleSearch = (query) => {
-    navigate(`/search-results?query=${query}`);
-  };
-
   useEffect(() => {
-    const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (token) {
       const decodedToken = jwt_decode(token);
-      console.log(decodedToken);
       const role = decodedToken.authorities || [];
       setUserPermissions(role);
     }
   }, []);
 
+  const handleSearch = (query) => {
+    navigate(`/search-results?query=${query}`);
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const searchInput = event.target.searchInput.value;
@@ -55,22 +54,22 @@ const NavBar = () => {
               <Link to="/all-authors">All Authors</Link>
             </li>
             {userPermissions.includes("ROLE_ADMIN") && (
-            <li>
-              <Link to="/add-author">Add an Author</Link>
-            </li>
+              <li>
+                <Link to="/add-author">Add an Author</Link>
+              </li>
             )}
           </ul>
         </li>
 
         {userPermissions.includes("ROLE_ADMIN") && (
-        <li>
-          <Link to="/all-users">Users</Link>
-        </li>
+          <li>
+            <Link to="/all-users">Users</Link>
+          </li>
         )}
         {userPermissions.includes("ROLE_ADMIN") && (
-        <li>
-          <Link to="/all-loans">Loans</Link>
-        </li>
+          <li>
+            <Link to="/all-loans">Loans</Link>
+          </li>
         )}
         <li>
           <div className="searchBar">

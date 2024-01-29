@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+.content {
+  min-height: 98vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-section {
+  padding: 16px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #3a3535;
+}

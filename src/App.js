@@ -15,6 +15,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UpdateUserPage from "./pages/UpdateUserPage";
 import UpdateAuthorPage from "./pages/UpdateAuthorPage";
 import AuthPage from "./pages/AuthPage";
+//import Register2 from "./pages/Reg2";
 
 function App() {
   return (
