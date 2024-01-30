@@ -5,22 +5,17 @@ import { format } from "date-fns";
 import "../styles/infoBookPage.css";
 
 const InfoBookPage = () => {
+  const token = localStorage.getItem("token");
   const { bookId } = useParams();
   const navigate = useNavigate();
   const [book, setBook] = useState();
   //const [borrowStatus, setBorrowStatus] = useState(book.borrowed ? "unavailable" : "available");
   let [comments, setComments] = useState([]);
   const [content, setContent] = useState("");
-  const token = localStorage.getItem("token");
-
-  console.log(token);
-
-  if (!token) {
-    console.log("Please log in to add a comment.");
-  }
 
   //TODO : if user not logged in and tries to post a comment : redirect log in page
   //delete one's one comment, and admins can delete all comments ; responsive
+  //all the mess with the user permissions (update book, delete, etc)
 
   //////////////Display book information
   useEffect(() => {
@@ -114,7 +109,7 @@ const InfoBookPage = () => {
         Authorization: `Bearer ${token}`,
       },
       body: commentData.content,
-      // Send only the string of the content otherwise {"content":"ok"} is displayed
+      //Send only the string of the content otherwise {"content":"ok"} is displayed
     })
       .then((response) => {
         if (!response.ok) {

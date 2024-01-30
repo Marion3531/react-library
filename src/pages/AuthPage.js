@@ -1,53 +1,23 @@
 import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from "../authentication/AuthProvider";
 import "../styles/authPage.css";
 
+//the authentication management logic is in AuthProvider.js
 const AuthPage = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const auth = useAuth(); //auth context
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    fetch("http://localhost:8080/api/auth/authenticate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok.");
-        }
-        return response.json(); // Extract JSON from response
-      })
-      .then((data) => {
-        const token = data.token; // Extract the token
-        localStorage.setItem("token", token); // Store the token in localStorage
-        console.log(token);
-        navigate(-1); //to prievious page
-      })
-      .catch((error) => {
-        console.error("Authentication error:", error);
-      });
-  };
-
+  //authentication form with link to registration form (RegisterPage.js)
   return (
     <div className="login-form-container">
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={auth.handleLogIn}>
         <div className="input-group">
           <label className="input-label">Username</label>
           <input
             className="input-field"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={auth.username}
+            onChange={(e) => auth.setUsername(e.target.value)}
           />
         </div>
         <div className="input-group">
@@ -55,8 +25,8 @@ const AuthPage = () => {
           <input
             className="input-field"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={auth.password}
+            onChange={(e) => auth.setPassword(e.target.value)}
           />
         </div>
         <p className="register-link">
